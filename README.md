@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This course work analyzes the cryptographic messaging protocol of the client-server architecture in the Minecraft program. It contains a description of the protocol, its protection algorithms, an analysis of their durability, as well as the implementation of a possible attack on this protocol and an assessment of its danger.
+This course work analyzes the cryptographic messaging protocol of the client-server architecture in the Minecraft 1.18.1. It contains a description of the protocol, its protection algorithms, an analysis of their durability, as well as the implementation of a possible attack on this protocol and an assessment of its danger.
 
 ## Attack idea
 
@@ -12,10 +12,10 @@ The packet transmitting the message from the in-game terminal consists of one fi
 
 From the above information , you can implement the following attack:
 
-1. The attacker creates an account with a name formed in such a way that it differs from the name of the administrator of a known server only in the last letter. For example, the administrator's name is Admin, and the attacker's name is Admix.
+1. The attacker creates an account with a name formed in such a way that it differs from the name of the administrator of a known server only in the last letter. For example, the administrator's name is ```Admin```, and the attacker's name is ```Admix```.
 2. It is required that a real administrator connects to the malicious server of the attacker, which is a simple proxy that redirects all data to the real server.
-3. The administrator must execute the */op Admin* command, which grants administrator rights to the Admin user.
-4. The proxy modifies the last byte received so that the real server receives the */op Admix* command.
+3. The administrator must execute the ```/op Admin``` command, which grants administrator rights to the Admin user.
+4. The proxy modifies the last byte received so that the real server receives the ```/op Admix``` command.
 5. The attacker gets administrator rights on the real server.
 
 ## Demonstration stand
@@ -28,7 +28,7 @@ The following software is used to exploit the vulnerability:
 + Paper - Minecraft game server;
 + [simple-tcp-proxy](https://github.com/wessels/simple-tcp-proxy) - proxy server.
 
-## Proof of exploit
+## Proof of concept
 
 First you need to modify the proxy. To implement the substitution of the last byte in the proxy source code, you need to add the following few lines:![proxy_modification](./img/proxy_modification.png)
 
@@ -44,17 +44,17 @@ Then you need to start proxy:
 ./simple-tcp-proxy 127.0.0.1 20000 127.0.0.1 25565
 ```
 
-Next, in the terminal of the game, enter the command */op Admin*:
+Next, in the terminal of the game, enter the command ```/op Admin```:
 
 ![PoC_1](./img/PoC_1.png)
 
-After sending the command, the administrator rights are assigned to a user named Admix:
+After sending the command, the administrator rights are assigned to a user named ```Admix```:
 
 ![PoC_2](./img/PoC_2.png)
 
 ## Risk assessment of vulnerability
 
-The assessment of the described vulnerability was carried out using the CVSS v3.1 system and amounted to 4.6, which corresponds to the average level of danger.
+The assessment of the described vulnerability was carried out using the CVSS v3.1 system and amounted to ```4.6```, which corresponds to the average level of danger.
 
 ![AoV](./img/AoV.png)
 
